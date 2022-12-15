@@ -2,7 +2,10 @@ package com.dnlg.projectsharingapi.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.annotation.Nullable;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,8 +17,9 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Data
+@Getter
+@Setter
 @RequiredArgsConstructor
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
@@ -45,27 +49,23 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Nullable
     @Column(nullable= true)
     private String profile_picture;
 
-    @Nullable
     @Column(nullable = true)
     private String linkedIn_url;
 
-    @Nullable
     @Column(nullable = true)
     private String github_url;
 
-    @Nullable
     @Column(nullable = true)
     private String profile;
 
-    @Nullable
     @Column(nullable = true)
     private String occupation;
 
-    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Folder> folders;
     
     
