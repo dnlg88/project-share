@@ -31,37 +31,36 @@ public class User {
 
     @NotBlank(message = "Name cannot be blank")
     @NonNull
-    @Column(nullable = false, unique = false)
+    @Column(name = "name")
     private String name;
 
     @NotBlank(message = "Last Name cannot be blank")
     @NonNull
-    @Column(nullable = false, unique = false)
-    private String last_name;
+    @Column(name = "last_name")
+    private String lastName;
     
     @NotBlank(message = "Email cannot be blank")
     @NonNull
-    @Column(nullable = false, unique = true)
+    @Column(name = "email")
     private String email;
 
     @NotBlank(message = "Password cannot be blank")
     @NonNull
-    @Column(nullable = false)
     private String password;
 
-    @Column(nullable= true)
-    private String profile_picture;
+    @Column(name = "profile_picture")
+    private String profilePicture;
 
-    @Column(nullable = true)
-    private String linkedIn_url;
+    @Column(name = "linked_in_url")
+    private String linkedInUrl;
 
-    @Column(nullable = true)
-    private String github_url;
+    @Column(name = "github_url")
+    private String githubUrl;
 
-    @Column(nullable = true)
+    @Column(name = "profile")
     private String profile;
 
-    @Column(nullable = true)
+    @Column(name = "occupation")
     private String occupation;
 
     @JsonIgnore

@@ -20,16 +20,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUser(Long id) {
         Optional<User> user = userRepository.findById(id);
-        if (user.isPresent()) {
-            return user.get();  
-        } else {
-            throw new UserNotFoundException(id);
-        }
+        return unwrapUser(user, id);
     }
 
-    public User saveUser(Long id) {
-        User user = userRepository.findById(id).get();
+    @Override
+    public User saveUser(User user) {
         return userRepository.save(user);
+    }
+
+    public User updateUser(Long id) {
+        Optional<User> user = userRepository.findById(id);
+        User unwrappedUser = unwrapUser(user, id);
+        return userRepository.save(unwrappedUser);
     }
 
     public void deleteUser(Long id) {
@@ -38,6 +40,13 @@ public class UserServiceImpl implements UserService {
 
     public List<User> getUsers() {
         return (List<User>) userRepository.findAll();
+    }
+
+    static User unwrapUser(Optional<User> user, Long id){
+        if (user.isPresent()) return user.get();
+        else {
+            throw new UserNotFoundException(id);
+        }
     }
 
 }
