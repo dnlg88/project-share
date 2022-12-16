@@ -29,6 +29,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotBlank(message = "Username cannot be blank")
+    @NonNull
+    @Column(name = "username", unique = true)
+    private String username;
+
     @NotBlank(message = "Name cannot be blank")
     @NonNull
     @Column(name = "name")
@@ -41,7 +46,7 @@ public class User {
     
     @NotBlank(message = "Email cannot be blank")
     @NonNull
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
     @NotBlank(message = "Password cannot be blank")
@@ -51,10 +56,10 @@ public class User {
     @Column(name = "profile_picture")
     private String profilePicture;
 
-    @Column(name = "linked_in_url")
+    @Column(name = "linked_in_url", unique = true)
     private String linkedInUrl;
 
-    @Column(name = "github_url")
+    @Column(name = "github_url", unique = true)
     private String githubUrl;
 
     @Column(name = "profile")

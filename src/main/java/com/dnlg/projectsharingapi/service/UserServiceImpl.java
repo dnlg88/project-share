@@ -18,8 +18,8 @@ public class UserServiceImpl implements UserService {
     UserRepository userRepository;
 
     @Override
-    public User getUser(Long id) {
-        Optional<User> user = userRepository.findById(id);
+    public User getUser(Long id, String username) {
+        Optional<User> user = userRepository.findUserByIdOrUsername(id, username);
         return unwrapUser(user, id);
     }
 
@@ -44,9 +44,7 @@ public class UserServiceImpl implements UserService {
 
     static User unwrapUser(Optional<User> user, Long id){
         if (user.isPresent()) return user.get();
-        else {
-            throw new UserNotFoundException(id);
-        }
+        else throw new UserNotFoundException(id);
     }
 
 }
