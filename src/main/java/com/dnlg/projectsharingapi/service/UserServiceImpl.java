@@ -3,10 +3,11 @@ package com.dnlg.projectsharingapi.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.dnlg.projectsharingapi.entity.User;
-import com.dnlg.projectsharingapi.exception.UserNotFoundException;
+import com.dnlg.projectsharingapi.exception.EntityNotFoundException;
 import com.dnlg.projectsharingapi.repository.UserRepository;
 
 import lombok.AllArgsConstructor;
@@ -15,7 +16,8 @@ import lombok.AllArgsConstructor;
 @Service
 public class UserServiceImpl implements UserService {
     
-    UserRepository userRepository;
+    private UserRepository userRepository;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public User getUser(Long id, String username) {
@@ -25,6 +27,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User saveUser(User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
@@ -44,7 +47,7 @@ public class UserServiceImpl implements UserService {
 
     static User unwrapUser(Optional<User> user, Long id){
         if (user.isPresent()) return user.get();
-        else throw new UserNotFoundException(id);
+        else throw new EntityNotFoundException(id, User.class);
     }
 
 }

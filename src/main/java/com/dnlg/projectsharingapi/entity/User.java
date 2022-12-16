@@ -17,13 +17,12 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
-@Data
+@Entity
+@Table(name = "users")
 @Getter
 @Setter
 @RequiredArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "users")
 public class User {
     
     @Id
@@ -31,23 +30,29 @@ public class User {
     private long id;
 
     @NotBlank(message = "Username cannot be blank")
+    @NonNull
     @Column(name = "username", unique = true)
     private String username;
 
     @NotBlank(message = "Name cannot be blank")
+    @NonNull
     @Column(name = "name")
     private String name;
 
     @NotBlank(message = "Last Name cannot be blank")
+    @NonNull
     @Column(name = "last_name")
     private String lastName;
     
     @NotBlank(message = "Email cannot be blank")
+    @NonNull
     @Email
     @Column(name = "email", unique = true)
     private String email;
 
     @NotBlank(message = "Password cannot be blank")
+    @NonNull
+    @Column(nullable = false)
     private String password;
 
     @Column(name = "profile_picture")
