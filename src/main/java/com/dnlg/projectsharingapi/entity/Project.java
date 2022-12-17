@@ -12,13 +12,22 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Table(name="project")
 public class Project {
     
     @Id
@@ -40,6 +49,10 @@ public class Project {
 
     @Column(name = "github_url")
     private String githubUrl;
+
+    @ManyToOne
+    @JoinColumn(name = "folder_id", referencedColumnName = "id")
+    private Folder folder;
 
     @JsonIgnore
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)

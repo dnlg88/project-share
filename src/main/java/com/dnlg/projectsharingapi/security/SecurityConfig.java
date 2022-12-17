@@ -6,10 +6,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.server.authentication.logout.DelegatingServerLogoutHandler;
-import org.springframework.security.web.server.authentication.logout.SecurityContextServerLogoutHandler;
-import org.springframework.security.web.server.authentication.logout.WebSessionServerLogoutHandler;
-import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import lombok.AllArgsConstructor;
 
@@ -26,16 +22,14 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                    .requestMatchers(HttpMethod.GET ,"/user").permitAll()
-                    .requestMatchers(HttpMethod.POST, "/user/register").permitAll()
-                    .anyRequest().denyAll())
+                    .requestMatchers(HttpMethod.GET ,"/**").permitAll())
                 .sessionManagement(session -> session
                   .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .build();
         //.logout((logout) -> logout
         //  .logoutUrl("/user/logout")
         //  .invalidateHttpSession(true));
-
+        // .requestMatchers(HttpMethod.POST, "/user/register").permitAll()
         
     }
 }

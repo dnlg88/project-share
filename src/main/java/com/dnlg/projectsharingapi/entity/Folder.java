@@ -18,9 +18,14 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Folder {
     
     @Id
@@ -28,6 +33,7 @@ public class Folder {
     private long id;
 
     @NotBlank(message = "Name cannot be blank")
+    @NonNull
     @Column(name = "name")
     private String name;
   

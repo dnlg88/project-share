@@ -33,14 +33,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @CreationTimestamp
-    @Column(name = "created_at", nullable = false)
-    private Date createdAt;
-
-    @UpdateTimestamp
-    @Column(name = "updated_at", nullable = false)
-    private Date updatedAt;
-
     @NotBlank(message = "Username cannot be blank")
     @NonNull
     @Column(name = "username", unique = true)
@@ -89,4 +81,13 @@ public class User {
     @JsonIgnore
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Comment> comments;
+
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false)
+    private Date createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at", nullable = false)
+    private Date updatedAt;
+
 }

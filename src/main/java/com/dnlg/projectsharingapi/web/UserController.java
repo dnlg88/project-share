@@ -21,7 +21,7 @@ public class UserController {
     
     UserService userService;
 
-    @GetMapping("/")
+    @GetMapping("/hello")
     public String testApp() {
         return "Hello there, chap";
     }
