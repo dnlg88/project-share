@@ -2,19 +2,40 @@ package com.dnlg.projectsharingapi.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.server.authentication.logout.DelegatingServerLogoutHandler;
+import org.springframework.security.web.server.authentication.logout.SecurityContextServerLogoutHandler;
+import org.springframework.security.web.server.authentication.logout.WebSessionServerLogoutHandler;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import lombok.AllArgsConstructor;
 
 @Configuration
 @AllArgsConstructor
 public class SecurityConfig {
-    
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.
-            
+        
+        // DelegatingServerLogoutHandler logoutHandler = new DelegatingServerLogoutHandler(
+        //         new WebSessionServerLogoutHandler(), new SecurityContextServerLogoutHandler());
+        
+        return http
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
+                    .requestMatchers(HttpMethod.GET ,"/user").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/user/register").permitAll()
+                    .anyRequest().denyAll())
+                .sessionManagement(session -> session
+                  .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .build();
+        //.logout((logout) -> logout
+        //  .logoutUrl("/user/logout")
+        //  .invalidateHttpSession(true));
+
+        
     }
 }

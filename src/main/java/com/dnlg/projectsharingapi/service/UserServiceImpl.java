@@ -20,8 +20,8 @@ public class UserServiceImpl implements UserService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public User getUser(Long id, String username) {
-        Optional<User> user = userRepository.findUserByIdOrUsername(id, username);
+    public User getUser(Long id) {
+        Optional<User> user = userRepository.findUserbyId(id);
         return unwrapUser(user, id);
     }
 

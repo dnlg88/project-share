@@ -52,7 +52,7 @@ public class User {
 
     @NotBlank(message = "Password cannot be blank")
     @NonNull
-    @Column(nullable = false)
+    @Column(nullable = false) 
     private String password;
 
     @Column(name = "profile_picture")
@@ -74,5 +74,8 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Folder> folders;
     
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Project> projects;
     
 }

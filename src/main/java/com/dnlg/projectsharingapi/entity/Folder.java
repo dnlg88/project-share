@@ -6,6 +6,9 @@ import java.util.List;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,6 +16,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 
 
@@ -39,8 +43,8 @@ public class Folder {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
     
-    @ManyToOne(optional=false)
-    @JoinColumn(name = "language_id", referencedColumnName = "id")
-    private Language language;
+    @JsonIgnore
+    @OneToMany(mappedBy = "folder", cascade = CascadeType.ALL)
+    private List<Project> project;
     
 }
