@@ -1,6 +1,10 @@
 package com.dnlg.projectsharingapi.entity;
 
-import io.micrometer.common.lang.NonNull;
+import java.sql.Date;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,6 +15,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 @Entity
 @AllArgsConstructor
@@ -23,8 +28,8 @@ public class ProjectImage {
     @Column(name = "id")
     private long id;
 
-    @NonNull
     @Column(name = "image_url")
+    @NonNull
     private String imageUrl;
 
     @ManyToOne(optional = false)

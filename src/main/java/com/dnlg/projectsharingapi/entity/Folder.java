@@ -30,15 +30,7 @@ public class Folder {
     @NotBlank(message = "Name cannot be blank")
     @Column(name = "name")
     private String name;
-
-    @CreationTimestamp
-    @Column(name="created_at", nullable = false)
-    private Date createdAt;
-
-    @UpdateTimestamp
-    @Column(name = "updated_at", nullable = false)
-    private Date updatedAt;
-
+  
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
@@ -47,4 +39,12 @@ public class Folder {
     @OneToMany(mappedBy = "folder", cascade = CascadeType.ALL)
     private List<Project> project;
     
+    @CreationTimestamp
+    @Column(name="created_at", nullable = false)
+    private Date createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at", nullable = false)
+    private Date updatedAt;
+
 }

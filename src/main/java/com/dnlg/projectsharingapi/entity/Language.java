@@ -1,6 +1,5 @@
 package com.dnlg.projectsharingapi.entity;
 
-import org.springframework.boot.autoconfigure.web.WebProperties.Resources.Chain.Strategy;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
