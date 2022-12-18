@@ -7,6 +7,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.dnlg.projectsharingapi.security.filter.AuthenticationFilter;
+import com.dnlg.projectsharingapi.security.filter.ExceptionHandlerFilter;
+
 import lombok.AllArgsConstructor;
 
 @Configuration
@@ -18,11 +21,17 @@ public class SecurityConfig {
         
         // DelegatingServerLogoutHandler logoutHandler = new DelegatingServerLogoutHandler(
         //         new WebSessionServerLogoutHandler(), new SecurityContextServerLogoutHandler());
-        
+        AuthenticationFilter authenticationFilter = new AuthenticationFilter();
+        authenticationFilter.setFilterProcessesUrl("/authenticate");
+
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                    .requestMatchers(HttpMethod.GET ,"/**").permitAll())
+                        .requestMatchers(HttpMethod.GET, "/**")
+                        .permitAll()
+                        .anyRequest().authenticated())
+                        .addFilterBefore(new ExceptionHandlerFilter(), authenticationFilter.getClass())
+                .addFilter(authenticationFilter)
                 .sessionManagement(session -> session
                   .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .build();
