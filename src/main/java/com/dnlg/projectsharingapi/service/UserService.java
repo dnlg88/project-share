@@ -9,6 +9,7 @@ import com.dnlg.projectsharingapi.entity.User;
 @Service
 public interface UserService {
     User getUser(Long id);
+    User getUser(String username);
     User saveUser(User user);
     User updateUser(Long id);
     void deleteUser(Long id);
